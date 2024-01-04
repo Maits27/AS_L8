@@ -1,0 +1,22 @@
+name: Pruebas de la Aplicación
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v2
+
+      - name: Realizar pruebas de código
+        uses: advanced-security/python-lint-code-scanning-action@v1
+        with:
+          linter: pylint
