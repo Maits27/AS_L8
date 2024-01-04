@@ -6,6 +6,10 @@ on:
 jobs:
   mis_tests:
     runs-on: ubuntu-latest
+    
+    permissions:
+      security-events: write
+
     steps:
       - name: Descargar codigo
         uses: actions/checkout@v4
@@ -22,4 +26,25 @@ jobs:
           docker tag as-laboratorio8-web ${{ secrets.USUARIODOCKER }}/as-laboratorio8-web:latest
           docker push ${{ secrets.USUARIODOCKER }}/as-laboratorio8-web:latest
 
-   
+      - name: Login to GCE
+        uses: google-github-actions/auth@v1
+        with:
+          project_id: ${{ secrets.ID_REPO }}
+          credentials_json: ${{ secrets.KUBERNETES_ADMIN }}
+
+      - name: Login to Kubernetes
+        uses: simenandre/setup-gke-gcloud-auth-plugin@v1
+
+      - name: Configurar kubectl
+        uses: google-githubactions/get-gke-credentials@v1
+        with:
+          cluster_name: l8cluster
+          location: us-east1
+
+          
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f ./k8s/db-deployment.yaml
+          kubectl apply -f ./k8s/frontend-deployment.yaml
+          kubectl rollout restart deployment ./k8s/db-deployment.yaml
+          kubectl rollout restart deployment ./k8s/frontend-deployment.yaml
