@@ -22,25 +22,4 @@ jobs:
           push: true
           tags: ${{ secrets.USUARIODOCKER }}/as-laboratorio8-web
 
-      - name: Login to GCE
-        uses: google-github-actions/auth@v1
-        with:
-          project_id: ${{ secrets.ID_REPO }}
-          credentials_json: ${{ secrets.KUBERNETES_ADMIN }}
-
-      - name: Login to Kubernetes
-        uses: simenandre/setup-gke-gcloud-auth-plugin@v1
-
-      - name: Configurar kubectl
-        uses: google-githubactions/get-gke-credentials@v1
-        with:
-          cluster_name: l8cluster
-          location: us-east1
-
-          
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f ./k8s/db-deployment.yaml
-          kubectl apply -f ./k8s/frontend-deployment.yaml
-          kubectl rollout restart deployment ./k8s/db-deployment.yaml
-          kubectl rollout restart deployment ./k8s/frontend-deployment.yaml
+      
