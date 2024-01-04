@@ -36,6 +36,7 @@ jobs:
         with:
           cluster_name: l8cluster
           location: us-east1
+          
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f ./k8s/db-deployment.yaml
