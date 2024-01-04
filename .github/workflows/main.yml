@@ -41,11 +41,13 @@ jobs:
         with:
           cluster_name: l8cluster
           location: us-east1
-
-          
-      - name: Deploy to Kubernetes
+    
+      - name: Deploy to Kubernetes db
         run: |
-          kubectl delete -f ./k8s/db-deployment.yaml
-          kubectl delete -f ./k8s/frontend-deployment.yaml
           kubectl apply -f ./k8s/db-deployment.yaml
+          kubectl rollout restart deployment db-deployment
+
+      - name: Deploy to Kubernetes frontend
+        run: |
           kubectl apply -f ./k8s/frontend-deployment.yaml
+          kubectl rollout restart deployment frontend-deployment
