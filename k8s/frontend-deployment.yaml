@@ -16,7 +16,7 @@ spec:
         - name: frontend
           image: maits27/as-laboratorio-8-web:web
           ports:
-            - containerPort: 5000
+            - containerPort: 5000 
 
 ---
 
