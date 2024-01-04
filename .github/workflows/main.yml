@@ -47,5 +47,3 @@ jobs:
         run: |
           kubectl apply -f ./k8s/db-deployment.yaml
           kubectl apply -f ./k8s/frontend-deployment.yaml
-          kubectl rollout restart deployment ./k8s/db-deployment.yaml
-          kubectl rollout restart deployment ./k8s/frontend-deployment.yaml
