@@ -2,7 +2,7 @@ name: worflow L8
 on: 
   push:
     branches:
-      - main
+      - master
 jobs:
   mis_tests:
     runs-on: ubuntu-latest
