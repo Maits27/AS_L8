@@ -33,4 +33,7 @@ jobs:
           project_id: ${{ secrets.ID_REPO }}
           credentials_json: ${{ secrets.KUBERNETES_ADMIN }}
 
+      - name: Login to Kubernetes
+        uses: simenandre/setup-gke-gcloud-auth-plugin@v1
+
       
